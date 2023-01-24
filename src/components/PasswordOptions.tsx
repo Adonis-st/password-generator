@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, FormEvent, ChangeEvent } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { StrengthStates } from "./StrengthStates";
@@ -9,7 +9,7 @@ interface Props {
 	setCopied: Dispatch<SetStateAction<boolean>>;
 }
 export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => {
-	const [passwordLength, setPasswordLength] = useState(10);
+	const [passwordLength, setPasswordLength] = useState(0);
 	const maxPasswordLength = 20;
 
 	const getBackgroundSize = {
@@ -25,11 +25,7 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 
 	const notify = (text: string) => toast.error(text);
 
-	const handleSlide = (e: any) => {
-		setPasswordLength(e.target.value);
-	};
-
-	const handleChange = (e: any) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setInclude((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.checked,
@@ -53,7 +49,7 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 		return symbols[random(0, symbols.length - 1)];
 	};
 
-	const generatePassword = (e: any) => {
+	const generatePassword = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (passwordLength < 1) {
@@ -83,17 +79,16 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 		}
 	};
 
-	useEffect(() => {
-		(e: any) => generatePassword(e);
-	}, []);
-
 	return (
-		<div className="bg-dark_gray mt-4 py-4 px-3 rounded-md">
+		<div className="bg-dark_gray mt-4 py-4 px-3 sm:py-6 sm:px-7 rounded-md">
 			<Toaster />
-			<div className="flex items-center justify-between">
-				<span className="font-bold text-almost_white">Character Length</span>
-				<span className="heading-m text-neon_green">{passwordLength}</span>
+			<div className="flex items-center justify-between sm:mb-4">
+				<span className="font-bold text-almost_white sm:text-[1.125rem] ">
+					Character Length
+				</span>
+				<span className="heading-m text-neon_green sm:text-[2rem]">{passwordLength}</span>
 			</div>
+
 			<input
 				type="range"
 				min={0}
@@ -101,11 +96,11 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 				value={passwordLength}
 				className="slider"
 				style={getBackgroundSize}
-				onChange={handleSlide}
+				onChange={(e) => setPasswordLength(+e.target.value)}
 			/>
 
 			<form onSubmit={generatePassword}>
-				<div className="flex mt-5">
+				<div className="flex mt-5 items-center sm:mt-6">
 					<input
 						type="checkbox"
 						id="upperCase"
@@ -114,11 +109,12 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 						checked={include.upperCase}
 						className="input-check"
 					/>
-					<label htmlFor="upperCase" className="text-almost_white font-bold ml-4">
+					<label htmlFor="upperCase" className="input-label">
 						Include Uppercase Letters
 					</label>
 				</div>
-				<div className="mt-3">
+
+				<div className="mt-3 flex items-center sm:mt-4">
 					<input
 						type="checkbox"
 						id="lowerCase"
@@ -127,11 +123,11 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 						checked={include.lowerCase}
 						className="input-check"
 					/>
-					<label htmlFor="lowerCase" className="text-almost_white font-bold ml-4">
+					<label htmlFor="lowerCase" className="input-label">
 						Include Lowercase Letters
 					</label>
 				</div>
-				<div className="mt-3">
+				<div className="mt-3 flex items-center sm:mt-4">
 					<input
 						type="checkbox"
 						id="numbers"
@@ -140,12 +136,12 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 						checked={include.numbers}
 						className="input-check"
 					/>
-					<label htmlFor="numbers" className="text-almost_white font-bold ml-4">
+					<label htmlFor="numbers" className="input-label">
 						Include Numbers
 					</label>
 				</div>
 
-				<div className="mt-3 ">
+				<div className="mt-3 flex items-center sm:mt-4">
 					<input
 						type="checkbox"
 						id="symbols"
@@ -154,19 +150,21 @@ export const PasswordOptions = ({ password, setPassword, setCopied }: Props) => 
 						checked={include.symbols}
 						className="input-check"
 					/>
-					<label htmlFor="symbols" className="text-almost_white font-bold ml-4">
+					<label htmlFor="symbols" className="input-label">
 						Include Symbols
 					</label>
 				</div>
-				<div className="bg-very_dark_gray px-3 py-3 uppercase mt-4 flex justify-between items-center">
-					<span className="text-light_gray">Strength</span>
+
+				<div className="bg-very_dark_gray px-3 py-3 uppercase mt-4 flex justify-between items-center sm:px-6 sm:py-5 rounded-md sm:mt-6">
+					<span className="text-light_gray sm:body sm:text-light_gray">Strength</span>
 					<StrengthStates password={password} />
 				</div>
+
 				<button
 					type="submit"
-					className="px-2 py-4 uppercase bg-neon_green w-full mt-4 flex items-center justify-center border border-neon_green hover:bg-transparent hover:text-neon_green">
+					className="px-2 py-4 uppercase font-bold bg-neon_green w-full mt-4 flex items-center justify-center border border-neon_green hover:bg-transparent hover:text-neon_green sm:text-[1.125rem]  rounded-md sm:mt-6">
 					<span>Generate</span>
-					<span className="ml-2">
+					<span className="ml-2 sm:ml-4">
 						<FaArrowRight />
 					</span>
 				</button>

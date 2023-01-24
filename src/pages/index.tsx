@@ -15,8 +15,11 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="mx-auto w-[90%]">
-				<h1 className="text-light_gray text-center mt-8 mb-4">Password Generator</h1>
+			<div className="mx-auto w-[90%] sm:w-[70%] max-w-[540px]">
+				<h1 className="text-light_gray text-center mt-8 mb-4 sm:text-[1.5rem] sm:mt-10 sm:mb-5">
+					Password Generator
+				</h1>
+
 				<Password password={password} copied={copied} setCopied={setCopied} />
 				<PasswordOptions password={password} setPassword={setPassword} setCopied={setCopied} />
 			</div>

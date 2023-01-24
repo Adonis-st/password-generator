@@ -20,7 +20,7 @@ export const StrengthStates = ({ password }: Props) => {
 
 	return (
 		<div className="flex items-center">
-			<span className="text-almost_white mr-4">{strengthState}</span>
+			<span className="body sm:heading-m mr-4 ">{strengthState}</span>
 
 			{!strengthState && (
 				<>

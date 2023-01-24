@@ -19,13 +19,6 @@ a {
 	box-sizing: border-box;
 }
 
-/* .slider {
-	box-shadow: #d46a6a50 0px 0px 0px 8px;
-	transition: box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-		left 350ms cubic- bezier(0.4, 0, 0.2, 1) 0ms, bottom 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-	@apply appearance-none shadow-none border-none bg-transparent;
-} */
-
 .slider {
 	@apply appearance-none h-[7px] bg-very_dark_gray rounded-md bg-no-repeat bg-gradient-to-r from-neon_green to-neon_green w-full;
 }
@@ -39,7 +32,7 @@ a {
 }
 
 .input-check {
-	@apply appearance-none w-5 h-5 relative rounded-sm bg-transparent checked:bg-neon_green border-2 border-almost_white checked:before:border-very_dark_gray checked:border-none;
+	@apply appearance-none w-5 h-5 relative rounded-sm bg-transparent checked:bg-neon_green border-2 border-almost_white checked:before:border-very_dark_gray checked:border-none hover:border-neon_green;
 }
 
 .input-check:checked::before {
@@ -52,6 +45,10 @@ a {
 	height: 12px;
 	border-width: 0 2.5px 2.5px 0;
 	transform: rotate(45deg);
+}
+
+.input-label {
+	@apply text-almost_white font-bold ml-4 sm:body sm:ml-5;
 }
 
 @layer components {
